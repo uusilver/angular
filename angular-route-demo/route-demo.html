@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myRouteApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular Route Demo</title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script src="../js/lib/angular-route.min.js"></script>
+<script>
+    angular.module("myRouteApp", ["ngRoute"])
+            .config(['$routeProvider', function ($routeProvider) {
+                $routeProvider
+                        .when("/page1", {
+                            templateUrl: "Subpage_1.html"
+                        })
+                        .when("/page2", {
+                            templateUrl: "Subpage_2.html"
+                        })
+                        .otherwise({
+                            redirectTo: "/"
+                        });
+            }]);
+
+</script>
+<body>
+<h2>
+    展示Angular的页面无刷新加载功能，Anguar route是一个纯前端的跳转。
+    能够从页面的一个视图跳转到另外一个视图，对单页面应用来讲是至关重要的。当应用变得越来越复杂时，我们需要一个合理的方式来管理用户在使用过程中看到的界面。AngularJS的做法是将视图分解成布局和模板视图，并且根据用户当前访问的URL来展示对应的视图。
+</h2>
+    <br/>
+<h2>
+    ng-view是由ngRoute模块提供的一个特殊指令，其告诉AngularJS把模板渲染到何处。这个例子中，我们将需要渲染的内容放到 下面的 div 中。上面的三个 a 链接分别指向了三个视图view。
+</h2>
+<div>
+    <ul>
+        <li><a href="#page1">go page 1</a></li>
+        <li><a href="#page2">go page 2</a></li>
+        <li><a href="#other">to other page</a></li>
+    </ul>
+</div>
+<div ng-view></div>
+</body>
+</html>
