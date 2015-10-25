@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="helloWorld">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+</head>
+<script src="js/lib/angular.js"></script>
+<script>
+    angular.module("helloWorld",[]);
+</script>
+<body>
+<h2>Hello {{world||"World"}}<br/></h2> <!-- 模型内给定了一个默认值"World" -->
+在输入框中输入不同的内容，可以看到Hello World里内容的变化 (这里实现了angular js的重要特性，数据双向绑定):<br/>
+<input type="text" ng-model="world"/>
+</body>
+</html>
