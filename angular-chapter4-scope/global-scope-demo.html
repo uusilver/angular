@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    angular.module("myApp",[]).run(
+            function($rootScope){
+                $rootScope.name = "world";
+            }
+    ).controller("myCtrl",function($scope){
+                $scope.name = "vani";
+            });
+
+</script>
+<body>
+       <h1>Hello {{name}}</h1>
+       <div ng-controller="myCtrl">
+           <h1>Hello {{name}}</h1>
+       </div>
+<br>
+我们创建了一个rootScope对象，rootScope是angularjs的全局变量，因此并不输入任何一个controller,我们也可以创建一个controller,
+以此来包含一个name对象, 而这里的name不同于上面的全局变量
+因此我们会看到虽然name对象相同，但是因为作用域的不同，值也不一样
+</body>
+</html>

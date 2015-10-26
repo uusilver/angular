@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app="clockApp">
+<head>
+    <title></title>
+</head>
+<script src="js/lib/angular.js"></script>
+<script>
+    angular.module("clockApp",[]).controller("clockCtrl",function($scope,$timeout){
+        var updateClock = function(){
+            $scope.clock = new Date();
+            $timeout(function(){
+                updateClock();
+            },1000);
+        }
+
+        updateClock();
+    });
+
+</script>
+<body ng-controller="clockCtrl">
+{{clock}}
+</body>
+</html>
