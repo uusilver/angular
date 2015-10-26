@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+</script>
+<body>
+
+{{ ['Ari','Lerner','Likes','To','Eat','Pizza'] | filter:'e' }}
+<!-- ["Lerner","Likes","Eat"] -->
+filter objrct: <br/>
+{{ [{
+'name': 'Ari',
+'City': 'San Francisco',
+'favorite food': 'Pizza'
+},{
+'name': 'Nate',
+'City': 'San Francisco',
+'favorite food': 'indian food'
+}] | filter:{'favorite food': 'Pizza'} }}
+<!-- [{"name":"Ari","City":"SanFrancisco","favoritefood":"Pizza"}] -->
+</body>
+</html>

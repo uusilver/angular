@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.controller("myCtrl",function($scope){
+        $scope.isCapitalized = function(str){
+            return str[0] == str[0].toUpperCase();
+        }
+    });
+</script>
+<body>
+<div ng-controller="myCtrl">
+    {{ ['Ari','likes','to','travel'] | filter:isCapitalized }}
+</div>
+</body>
+</html>

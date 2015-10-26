@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp",[]);
+    app.controller("myCtrl",function($scope, $parse){
+        $scope.$watch("expr",function(newVal, oldVal, scope){
+           if(newVal !== oldVal){
+               // 用该表达式设置parseFun
+               var parseFun = $parse(newVal);
+               // 获取经过解析后表达式的值
+               $scope.parseValue = parseFun(scope);
+           }
+        });
+    });
+</script>
+<body ng-controller="myCtrl">
+<h3>在输入框中输入:2+4, 你会看到计算结果</h3>
+<input ng-model="expr" type="text" placeholder="Entern an expression"/>
+<h2>{{parseValue}}</h2>
+</body>
+</html>
