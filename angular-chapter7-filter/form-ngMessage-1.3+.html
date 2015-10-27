@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<link href="../css/foundation.css" rel="stylesheet">
+<script src="../js/lib/angular.js"></script>
+<script src="../js/lib/ng-messages.js"></script>
+<script>
+    var app = angular.module("myApp", ["ngMessages"]);
+    app.controller("myCtrl", function () {
+
+    });
+</script>
+<body>
+<div ng-controller="myCtrl">
+    <form name="signup_form" novalidate="">
+          <label>Your name</label>
+          <input type="text" name="name" ng-model="signup.name" ng-minlength=3 ng-maxlength=20 required="" />
+          <div class="error" ng-messages="signup_form.name.$error">
+              <div ng-message="required">Make sure you enter your name</div>
+              <div ng-message="minlength">Your name must be at least 3 characters</div>
+              <div ng-message="maxlength">Your name cannot be longer than 20 characters</div>
+          </div>
+          <button type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.controller("myCtrl", function ($scope) {
+                 $scope.check = function(){
+                     alert("form valid:"+$scope.form.email.$valid);
+                     alert("form invalid:"+$scope.form.email.$invalid);
+                     alert("form dirty:"+$scope.form.email.$dirty);
+                 }
+    });
+</script>
+<body>
+<h3>
+    要使用表单验证，首先要确保表单像上面的例子一样有一个name属性。
+    所有输入字段都可以进行基本的验证，比如最大、最小长度等。这些功能是由新的HTML5
+    表单属性提供的。
+    如果想要屏蔽浏览器对表单的默认验证行为，可以在表单元素上添加novalidate标记。
+     未修改的表单
+    这是一个布尔属性，用来判断用户是否修改了表单。如果未修改，值为true，如果修改过值
+    为false：
+    formName.inputFieldName.$pristine
+     修改过的表单
+    只要用户修改过表单，无论输入是否通过验证，该值都返回true：
+    formName.inputFieldName.$dirty
+     合法的表单
+    这个布尔型的属性用来判断表单的内容是否合法。如果当前表单内容是合法的，下面属性的
+    值就是true：
+    formName.inputFieldName.$valid
+     不合法的表单
+    这个布尔属性用来判断表单的内容是否不合法。如果当前表单内容是不合法的，下面属性的
+    值为true：
+    formName.inputFieldName.$invalid
+     错误
+    这是AngularJS提供的另外一个非常有用的属性：$error对象。它包含当前表单的所有验证
+    内容，以及它们是否合法的信息。
+</h3>
+<div ng-controller="myCtrl">
+    <form name="form" novalidate>
+        <label name="email">Your email</label>
+        <input type="email" name="email" ng-model="email" placeholder="Email Address" />
+        <button ng-click="check()">Click me</button>
+    </form>
+</div>
+</body>
+</html>
