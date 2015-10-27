@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.controller("myCtrl", function () {
+
+    });
+    app.directive("mydirective",function(){
+        return {
+            restrict:'A',
+            replace:true,
+            scope:{
+                myurl:'@',   //执行绑定策略
+                mylinktext:'@'
+            },
+            template:'<a href="{{myurl}}">{{mylinktext}}</a>'
+        };
+    });
+</script>
+<body>
+<h2>
+    只需要简单的使用ng-model,中的属性赋值给directive中，即可实现双向绑定，因为作用域的存在，不用担心重名的问题
+</h2>
+
+URL address:<input type="text" ng-model="inputurl"/><br/>
+URL text:<input type="text" ng-model="inputext"/>
+<div mydirective myurl="{{inputurl}}"   mylinktext="{{inputext}}"></div>
+<div ng-controller="myCtrl">
+</div>
+</body>
+</html>

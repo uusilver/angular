@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.run(function($rootScope){
+        $rootScope.rootProperty = "Root Property";
+    })
+    app.controller("ParentController", function ($scope) {
+        $scope.parentProperty = "Parent  Property";
+    });
+    app.controller("ChildController", function ($scope) {
+        $scope.childProperty = "Child  Property";
+        $scope.fullSentenceFromChild = "Full";
+    });
+</script>
+<body>
+<h2>在scope范围中，如果当前作用域查询不到数据，则会向上一层去寻找，如果最后还是没找到则会认为数据为空</h2>
+<p>We can access: {{ rootProperty }}</p>
+<div ng-controller="ParentController">
+    <p>We can access: {{ rootProperty }}
+        and {{ parentProperty }}</p>
+    <div ng-controller="ChildController">
+        <p>
+            We can access:
+            {{ rootProperty }} and
+            {{ parentProperty }} and
+            {{ childProperty }}
+        </p>
+        <p>{{ fullSentenceFromChild }}</p>
+    </div>
+</div>
+</body>
+</html>

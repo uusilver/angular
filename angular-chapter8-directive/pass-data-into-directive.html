@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.controller("myCtrl", function () {
+
+    });
+    app.directive("mydirective",function(){
+        return {
+            restrict:'A',
+            replace:true,
+            scope:{
+                myurl:'@',   //执行绑定策略
+                mylinktext:'@'
+            },
+            template:'<a href="{{myurl}}">{{mylinktext}}</a>'
+     };
+    });
+</script>
+<body>
+<h2>
+    在angularjs中，在directivec使重新定义一个scope的一个重要原因是 隔离，属性名不会被污染，这意味着这里定义的模型，仅仅会被作用于这个directive上，切记
+</h2>
+<div mydirective myurl="http://google.com"   mylinktext="Click me to go to Google"></div>
+<div ng-controller="myCtrl">
+</div>
+</body>
+</html>

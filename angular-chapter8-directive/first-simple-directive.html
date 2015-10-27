@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.controller("myCtrl", function () {
+
+    });
+    app.directive("mydirective",function(){
+        return {
+            restrict:'EA',
+            template:'<a href="http://www.apjs.net/">Click me to visit angular js chinese website</a>'
+        }
+    })
+</script>
+<body>
+<h2>
+    无论有多少种方式可以声明指令，我们坚持使用属性方式，因为它有比较好的跨浏览器兼容性
+</h2>
+<mydirective></mydirective>  <br/>
+<div mydirective></div>
+<div ng-controller="myCtrl">
+</div>
+</body>
+</html>
