@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.controller("myCtrl", function ($scope) {
+            $scope.showme = false;
+        $scope.showOut = function(){
+
+            $scope.showme = true;
+        }
+    });
+</script>
+<body>
+<div ng-controller="myCtrl">
+    <span ng-show="showme">Hello You</span>
+    <button ng-click="showOut()">Show out</button>
+</div>
+</body>
+</html>

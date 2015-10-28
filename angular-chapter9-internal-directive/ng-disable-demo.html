@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.run(function($rootScope, $timeout){
+        $rootScope.isDisabled = true;
+        $timeout(function(){
+            $rootScope.isDisabled = false;
+        },5000);
+    });
+    app.controller("myCtrl", function () {
+
+    });
+</script>
+<body>
+<h2>在输入框中 输入一定的数值，才能激活按钮</h2>
+<input type="text" placeholder="TypeToEnable" ng-model="someval"/><br/>
+<button type="submit" ng-disabled="!someval">Submit</button>
+<div ng-controller="myCtrl">
+</div>
+<h2>Disable property will be removed after 5 seconds, and in the run module, it should use rootScope</h2>
+<button type="submit" ng-disabled="isDisabled">Wati5Seconds</button>
+</body>
+</html>
