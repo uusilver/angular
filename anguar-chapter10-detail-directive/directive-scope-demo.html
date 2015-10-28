@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.directive("mydirective",function(){
+       return {
+           restrict:'A',
+           scope:true, //if you input scope:{}, in here, the result is the same
+           template:'<div>{{myproperty}}</div>'
+       };
+    });
+    app.controller("myCtrl", function () {
+
+    });
+</script>
+<body>
+<h2>If the scope value inside directive has been set to true, you will find that inside the directive,
+the value can be visited</h2>
+<div ng-controller="myCtrl">
+    <div mydirective="myproperty" ng-init="myproperty='hello_vani'"></div>
+    {{myproperty}}
+</div>
+</body>
+</html>
