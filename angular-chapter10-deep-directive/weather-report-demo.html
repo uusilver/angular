@@ -7,10 +7,12 @@
 <script src="../js/lib/angular.js"></script>
 <script>
     var app = angular.module("myApp", []);
-    app.directive("ngSparkline", function () {
+    app.directive("weatherLocator", function () {
         return {
             restrict: 'A',
-            template: '<div>Weather report for: {{ngCity}}<br/>Current weather data:{{wData}}</div>',
+            template: '<div>Weather report for: {{ngCity}}<br/>' +
+                    'Current weather data:{{wData}}<br/>' +
+                    '<button ng-click="refresh()">click me</button></div>',
             scope: {
                 'ngCity': '@',
                 'wData': '@'
@@ -34,6 +36,10 @@
                                     }
                                 }
                             })
+                };
+
+                $scope.refresh = function(){
+                    alert("refresh");
                 }
 
             }]
@@ -41,7 +47,6 @@
     });
 </script>
 <body>
-<div ng-sparkline ng-city="beijing"></div>
-
+    <div weather-Locator ng-city="beijing"></div>
 </body>
 </html>
