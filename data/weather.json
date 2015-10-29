@@ -1,0 +1,12 @@
+{
+    "data": [
+        {
+            "city": "beijing",
+            "degree": "20"
+        },
+        {
+            "city": "nanjing",
+            "degree": "30"
+        }
+    ]
+}

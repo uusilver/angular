@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.directive("ngSparkline",function(){
+        return {
+            restrict:'A',
+            require:'^ngModel',
+            template:'<div>Hello {{ngModel}} worlds</div>'
+        }
+    });
+
+</script>
+<body>
+<div ng-Sparkline ng-model="model"></div>
+
+</div>
+</body>
+</html>

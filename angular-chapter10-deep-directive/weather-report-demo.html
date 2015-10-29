@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.directive("ngSparkline", function () {
+        return {
+            restrict: 'A',
+            template: '<div>Weather report for: {{ngCity}}<br/>Current weather data:{{wData}}</div>',
+            scope: {
+                'ngCity': '@',
+                'wData': '@'
+            },
+            link: function (scope, ele, attr) {
+                //must use scope watch to change the value
+                scope.$watch('ngCity', function () {
+                    scope.getTemp(scope.ngCity);
+                })
+            },
+            controller: ['$scope', '$http', function ($scope, $http) {
+                var url = '../data/weather.json';
+                $scope.getTemp = function (city) {
+                    $http({
+                        method: 'GET',
+                        url: url
+                    }).success(function (data) {
+                                for (var i = 0; i < data.data.length; i++) {
+                                    if (city == data.data[i].city) {
+                                        $scope.wData =  data.data[i].degree;
+                                    }
+                                }
+                            })
+                }
+
+            }]
+        };
+    });
+</script>
+<body>
+<div ng-sparkline ng-city="beijing"></div>
+
+</body>
+</html>
