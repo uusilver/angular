@@ -1,0 +1,28 @@
+{
+    "data": [
+        {
+            "name": "Tom Hifiger",
+            "email": "th@tmind.com",
+            "department":"Global Service" ,
+            "status":"Normal"
+        },
+        {
+            "name": "Danne Wisleman",
+            "email": "dw@tmind.com",
+            "department":"HR" ,
+            "status":"On vocation"
+        },
+        {
+            "name": "Shane Wong",
+            "email": "sw@tmind.com",
+            "department":"Developer" ,
+            "status":"Normal"
+        },
+        {
+            "name": "Abrate Hammer",
+            "email": "ah@tmind.com",
+            "department":"Designer" ,
+            "status":"Normal"
+        }
+    ]
+}

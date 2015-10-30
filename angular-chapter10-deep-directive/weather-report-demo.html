@@ -10,9 +10,7 @@
     app.directive("weatherLocator", function () {
         return {
             restrict: 'A',
-            template: '<div>Weather report for: {{ngCity}}<br/>' +
-                    'Current weather data:{{wData}}<br/>' +
-                    '<button ng-click="refresh()">click me</button></div>',
+            templateUrl:'weather-template.html',
             scope: {
                 'ngCity': '@',
                 'wData': '@'

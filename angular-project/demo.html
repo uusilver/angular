@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.factory("loadDataFactory",function($q, $http){
+        return {
+            initTableDataFromRestfulService:function(url){
+                var deferred = $q.defer();
+                 $http.get(url)
+                         .success(function(data){
+                                deferred.resolve(data);
+
+                         })
+                         .error(function(){
+                             deferred.reject("Failed to load data");
+                         });
+               return deferred.promise;
+            }
+        }
+    });
+    app.directive("myTable",function(){
+       return {
+           restrict:'E',
+           templateUrl:"table-template.html",
+           scope:{
+               "persons":"@",
+               "myUrl":"@"
+           },
+           link:function(scope, ele, attr){
+                       scope.initTable(scope.myUrl);N
+           },
+           controller:["$scope","loadDataFactory",function($scope, loadDataFactory){
+               $scope.initTable = function(url){
+                   var promise = loadDataFactory.initTableDataFromRestfulService(url);
+                   promise.then(function(data){
+                       $scope.persons =    data;
+                   })
+
+               }//end of initTable
+
+               $scope.sortName = function(){
+                   alert("Sorting");
+               }
+           }]
+       }
+    });
+</script>
+<body>
+    <my-table my-url="../data/tableData.json"></my-table>
+</body>
+</html>
