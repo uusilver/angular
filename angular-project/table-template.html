@@ -4,14 +4,34 @@
     <title></title>
 </head>
 <link href="../css/foundation.css" rel="stylesheet">
+<style>
+    .myTableSortBoth{
+        background-image: url('../images/sort_both.png');
+        background-repeat: no-repeat;
+        background-position: center right;
+    }
+
+    .myTableSortAsc{
+        background-image: url('../images/sort_asc.png');
+        background-repeat: no-repeat;
+        background-position: center right;
+    }
+
+    .myTableSortDesc{
+        background-image: url('../images/sort_desc.png');
+        background-repeat: no-repeat;
+        background-position: center right;
+    }
+
+</style>
 <body>
 <table>
     <thead>
     <tr>
-        <th width="200" ng-click="sortName()">Name</th>
-        <th>Email</th>
-        <th width="150">Department</th>
-        <th width="150">Status</th>
+        <th width="200" ng-click="sortName()" ng-class="tableHeaderClass">Name</th>
+        <th class="myTableSortBoth">Email</th>
+        <th class="myTableSortBoth" width="150">Department</th>
+        <th class="myTableSortBoth" width="150">Status</th>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +42,18 @@
         <td>{{person.status}}</td>
     </tr>
     </tbody>
+
 </table>
+<ul class="pagination">
+    <li class="arrow unavailable"><a href="">&laquo;</a></li>
+    <li class="current"><a href data="1">1</a></li>
+    <li><a href data="2">2</a></li>
+    <li><a data="3">3</a></li>
+    <li><a href data="4">4</a></li>
+    <li class="unavailable"><a href="">&hellip;</a></li>
+    <li><a href data="12">12</a></li>
+    <li><a href="">13</a></li>
+    <li class="arrow"><a href="">&raquo;</a></li>
+</ul>
 </body>
 </html>

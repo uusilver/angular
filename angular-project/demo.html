@@ -7,9 +7,11 @@
 <script src="../js/lib/angular.js"></script>
 <script>
     var app = angular.module("myApp", []);
+    //定义调用数据的factory
     app.factory("loadDataFactory",function($q, $http){
         return {
             initTableDataFromRestfulService:function(url){
+                //使用Promise机制
                 var deferred = $q.defer();
                  $http.get(url)
                          .success(function(data){
@@ -27,19 +29,26 @@
        return {
            restrict:'E',
            templateUrl:"table-template.html",
+           //用scope绑定外部对象，scope,来申明隔绝的作用域
            scope:{
                "persons":"@",
-               "myUrl":"@"
+               "tableDataLink":"@",
+               "tableHeaderClass":'@'
            },
+           //注入scope,来申明隔绝的作用域
            link:function(scope, ele, attr){
-                       scope.initTable(scope.myUrl);N
+                       //调用Controller里的方法
+                       scope.initTable(scope.tableDataLink);
            },
+           //定义供directive使用的controller
            controller:["$scope","loadDataFactory",function($scope, loadDataFactory){
                $scope.initTable = function(url){
                    var promise = loadDataFactory.initTableDataFromRestfulService(url);
                    promise.then(function(data){
-                       $scope.persons =    data;
+                       $scope.persons = data;
                    })
+
+                   $scope.tableHeaderClass = "myTableSortDesc";
 
                }//end of initTable
 
@@ -51,6 +60,7 @@
     });
 </script>
 <body>
-    <my-table my-url="../data/tableData.json"></my-table>
+    <!-- 需要注意在directive中定义的名称如果用 横杠分开，那么在directive定义的时候就要用驼峰命名的方式-->
+    <my-table table-data-link="../data/tableData.json"></my-table>
 </body>
 </html>
