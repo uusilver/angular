@@ -41,6 +41,7 @@
                        scope.initTable(scope.tableDataLink);
            },
            //定义供directive使用的controller
+           //Controller []是另外一种由AngularJS提供的依赖注入
            controller:["$scope","loadDataFactory",function($scope, loadDataFactory){
                $scope.initTable = function(url){
                    var promise = loadDataFactory.initTableDataFromRestfulService(url);
