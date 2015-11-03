@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.factory("dataFactory",function($q, $http){
+           return {
+               getData:function(){
+                    var  deffered = $q.defer();
+                    $http.get("../data/xhr.json").success(function(data){
+                        deffered.resolve(data);
+                    })
+                   return deffered.promise;
+               }
+           }
+    })
+    app.controller("myCtrl", function ($scope,dataFactory) {
+        var promise =  dataFactory.getData();
+        promise.then(function(data){
+            $scope.data =   data.data;
+        })
+
+    });
+</script>
+<body>
+<div ng-controller="myCtrl">
+    {{data}}
+</div>
+</body>
+</html>
