@@ -6,11 +6,70 @@
 </head>
 <script src="js/lib/angular.js"></script>
 <script>
-    angular.module("helloWorld",[]);
+    angular.module("helloWorld",[])
+            .controller("hello",function($scope){
+
+                $scope.example = {};
+
+                var namespace=[];
+
+
+                var values = [
+                    {v:"com.schenker.nges.portal"}
+                ]
+                for(var i=0;i<values.length;i++){
+                    var treeNodes = values[i].v.split(".");
+                    for(var j=0;j<treeNodes.length;j++){
+
+                    }
+
+                }
+
+                var toTree = function(data,level,key) {
+                    var tree = [];
+                    if(!level) level = 1;
+//                    for(var i=0;i<data.length;i++) {
+                      for(j in data[i]){
+                        var name = 'key'+level,mask = false;
+                        if(data[i][name]===undefined || data[i][name]===null) continue;
+                        if(data[i]['key'+(level-1)] && data[i]['key'+(level-1)]!==key) continue;
+                        for(var j=0;j<tree.length;j++) {
+                            if(data[i][name]==tree[j][name]) {
+                                mask = true;
+                                break;
+                            }
+
+                        }
+                        if(!mask) {
+                            var obj = {};
+                            obj[name] = data[i][name];
+                            obj.children = toTree(data,level+1,data[i][name]);
+                            if(obj.children.length<=0) delete obj.children;
+                            tree.push(obj);
+                        }
+                    }//end of for
+                    return tree;
+                }
+                var data=[
+                            {"key1":"com", "key2":"schenker", "key3":"nges","key4":"glove"},
+                            {"key1":"com", "key2":"schenker", "key3":"nges","key4":"travel"}
+                ]
+
+                var tree=toTree(data);
+
+                $scope.example = JSON.stringify(tree).replace(/key[0-9]/g,'label');
+
+
+
+
+            })
+
 </script>
-<body>
+<body ng-controller="hello">
 <h2>Hello {{world||"World"}}<br/></h2> <!-- 模型内给定了一个默认值"World" -->
 在输入框中输入不同的内容，可以看到Hello World里内容的变化 (这里实现了angular js的重要特性，数据双向绑定):<br/>
 <input type="text" ng-model="world" placeholder="input some words"/>
+
+{{example}}
 </body>
 </html>
