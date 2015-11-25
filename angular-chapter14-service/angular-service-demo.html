@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.service("myService",function(){
+       this.sayHello =function(name){
+           alert("hello "+name);
+       }
+        return this;
+    });
+
+
+    app.controller("myCtrl", function ($scope,myService) {
+        $scope.sayHello = function(){
+            myService.sayHello("world");
+        }
+    });
+</script>
+<body>
+<div ng-controller="myCtrl">
+    <h2>Service 是用"new"关键字实例化的。因此，你应该给"this"添加属性，然后 service 返回"this"。
+        你把 service 传进 controller 之后，在controller里 "this" 上的属性就可以通过 service 来使用了。</h2>
+    <button ng-click="sayHello()">Say Hello</button>
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.factory("fac",function(){
+        //创建一个对象
+        var services = {};
+        //为对象添加属性
+        services.sayHello = function(name){
+            alert("Hello "+name);
+        }
+        //返回对象
+        return services;
+    });
+    app.controller("myCtrl", function ($scope,fac) {
+           $scope.sayHello = function(){
+               fac.sayHello("world");
+           }
+    });
+</script>
+<body>
+<div ng-controller="myCtrl">
+    <h2>用 Factory 就是创建一个对象，为它添加属性，然后把这个对象返回出来。
+        你把 service 传进 controller 之后，在 controller 里这个对象里的属性就可以通过 factory 使用了。</h2>
+    <button ng-click="sayHello()">Say Hello</button>
+</div>
+</body>
+</html>
