@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>OnLine Test Result</title>
+</head>
+<script src="../js/lib/angular.js"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+
+
+<script>
+    angular.module("myApp",[]).controller("ResultController",function($scope){
+        $scope.testResult = "Total Question: 50, Correct: 30, Rate: 60%"
+    });
+
+</script>
+<body>
+<div class="container" ng-controller="ResultController">
+    <div class="row myCenter">
+        <div class="col-xs-12 col-md-12 col-center-block">
+                <h2 class="form-signin-heading">Test Result: {{testResult}}</h2>
+        </div>
+    </div>
+</div>
+</body>
+</html>
