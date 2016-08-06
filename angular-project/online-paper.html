@@ -5,64 +5,94 @@
     <title></title>
 </head>
 <script src="../js/lib/angular.js"></script>
-<script src="../js/lib/bootstrap.min.js"></script>
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 
 <script>
+    //*Say something to tester in here
+    console.log("Enjoy the test");
+    console.log("********************************************************");
+    //--------------------------------
     angular.module("myApp",[]).controller("QuestionSettingCtrl",function($scope, $timeout){
         //timer
         var NowTime = new Date();
-        var updateClock = function(){
+        var updateTimer = function(){
             var EndTime= new Date();
             var t =EndTime.getTime() - NowTime.getTime();
             var h=Math.floor(t/1000/60/60%24);
             var m=Math.floor(t/1000/60%60);
             var s=Math.floor(t/1000%60);
-            $scope.clock = h + "时" +  m + "分"+ s + "秒";
+            $scope.clock = h + "h : " +  m + "m : "+ s+"s";
             $timeout(function(){
-                updateClock();
+                updateTimer();
             },1000);
         }
 
-        updateClock();
+        updateTimer();
 
 
         //paper test
+
+        $scope.title = "Welcome to DB Schenker SSC on line test";
         $scope.items =[
             {test:"test1", op1:"o11", op2:"o12", op3:"o13", op4:"o14", answer:""},
             {test:"test2", op1:"o21", op2:"o22", op3:"o23", op4:"o24", answer:""},
             {test:"test3", op1:"o31", op2:"o32", op3:"o33", op4:"o34", answer:""},
         ];
-        $scope.answer = [];
         var submitFlag = true;
         $scope.submit = function(){
-            if(checkIfNullAnswer($scope.items)){
-                var confirmFlag = confirm("有未做完的题目，是否提交");
+            var unAnswered = checkUnAnswered($scope.items, true);
+            if(unAnswered>0){
+                var confirmFlag = confirm("Question No."+unAnswered+" has not been answered，confirm to submit?");
                 confirmFlag == true ? submitFlag = true : submitFlag = false;
             }
             if(submitFlag){
                 alert(JSON.stringify($scope.items));
             }
 
+        }//end of submit
+
+        //update answer state
+        $scope.record = function(){
+            $scope.answerPanel = "You Have Answered: "+checkUnAnswered($scope.items, false)+"/"+ $scope.items.length +" questions";
         }
     });
 
     //if there is any question that have not been answered
-    function checkIfNullAnswer(data){
-        var flag = false;
+    function checkUnAnswered(data, is){
+        var counter = 0;
         for(var i=0; i<data.length; i++){
-            if(data[i].answer.length<1){
-                flag = true;
+            if(is && data[i].answer.length<1){
+                //find un-answered question
+                counter = i+1;
                 break;
             }
+            else if(!is && data[i].answer.length>0){
+                //find answered questions;
+                counter +=1;
+            }
+
         }
-        return flag;
+        return counter;
+    }
+
+    //click event
+    function checkLeave(){
+        event.returnValue="Confirm to leave the page?";
     }
 </script>
-<body data-ng-controller="QuestionSettingCtrl">
+<body data-ng-controller="QuestionSettingCtrl" onbeforeunload="checkLeave()">
 <nav class="navbar navbar-default navbar-fixed-top">
-    <img src="../images/dbschenker-logo.jpg" height="50" width="83" />
-    <small>您已用时:{{clock}}</small>
+    <div class="row">
+        <div class="col-md-4 text-left">
+            <img src="../images/dbschenker-logo.jpg" height="50" width="93" />
+        </div>
+        <div class="col-md-4 text-center">{{title}}</div>
+        <div class="col-md-4 text-right">
+            <small>Time Used: {{clock}}</small><br/>
+            <small>{{answerPanel}}</small>
+        </div>
+    </div>
+
 
 </nav>
 <div class="container" >
@@ -70,16 +100,16 @@
         <h3 data-ng-bind="$index+1 +'、 '+item.test" colSpan="4"></h3>
         <table class="table table-striped">
             <tr>
-                <td><input type="radio" value="A" data-ng-model="item.answer" />A <span data-ng-bind="item.op1"></span>  </td>
+                <td><input type="radio" value="A" data-ng-model="item.answer" data-ng-click="record()"/>A <span data-ng-bind="item.op1"></span>  </td>
             </tr>
             <tr>
-                <td><input type="radio" value="B" data-ng-model="item.answer" />B <span data-ng-bind="item.op2"></span>  </td>
+                <td><input type="radio" value="B" data-ng-model="item.answer" data-ng-click="record()"/>B <span data-ng-bind="item.op2"></span>  </td>
             </tr>
             <tr>
-                <td><input type="radio" value="C" data-ng-model="item.answer" />C <span data-ng-bind="item.op3"></span>  </td>
+                <td><input type="radio" value="C" data-ng-model="item.answer" data-ng-click="record()"/>C <span data-ng-bind="item.op3"></span>  </td>
             </tr>
             <tr>
-                <td><input type="radio" value="D" data-ng-model="item.answer" />D <span data-ng-bind="item.op4"></span>  </td>
+                <td><input type="radio" value="D" data-ng-model="item.answer" data-ng-click="record()"/>D <span data-ng-bind="item.op4"></span>  </td>
             </tr>
         </table>
         <br>
